@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #calculator {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #result {
+            height: 60px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button.operator {
+            background-color: #ff8c00;
+            color: #fff;
+        }
+
+        button.double {
+            grid-column: span 2;
+        }
+
+        button.equal {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="calculator">
+        <div id="result">0</div>
+        <div id="buttons">
+            <button onclick="clearResult()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+            <button class="operator" onclick="appendCharacter('/')">/</button>
+            <button class="operator" onclick="appendCharacter('*')">*</button>
+            <button onclick="appendCharacter('7')">7</button>
+            <button onclick="appendCharacter('8')">8</button>
+            <button onclick="appendCharacter('9')">9</button>
+            <button class="operator" onclick="appendCharacter('-')">-</button>
+            <button onclick="appendCharacter('4')">4</button>
+            <button onclick="appendCharacter('5')">5</button>
+            <button onclick="appendCharacter('6')">6</button>
+            <button class="operator" onclick="appendCharacter('+')">+</button>
+            <button onclick="appendCharacter('1')">1</button>
+            <button onclick="appendCharacter('2')">2</button>
+            <button onclick="appendCharacter('3')">3</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+            <button class="double" onclick="appendCharacter('0')">0</button>
+            <button onclick="appendCharacter('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        let result = document.getElementById("result");
+
+        function appendCharacter(char) {
+            if (result.textContent === "0" && char !== ".") {
+                result.textContent = char;
+            } else {
+                result.textContent += char;
+            }
+        }
+
+        function clearResult() {
+            result.textContent = "0";
+        }
+
+        function deleteLast() {
+            result.textContent = result.textContent.slice(0, -1) || "0";
+        }
+
+        function calculateResult() {
+            try {
+                result.textContent = eval(result.textContent);
+            } catch (error) {
+                result.textContent = "Error";
+            }
+        }
+    </script>
+
+</body>
+</html>
